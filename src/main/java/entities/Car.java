@@ -2,7 +2,8 @@ package entities;
 
 
 public class Car {
-
+	
+	int id;
 	String brand;
 	String model;
 	String year;
@@ -17,9 +18,10 @@ public class Car {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Car(String brand, String model, String year, String parkingNumber, Boolean reservation_status,
+	public Car(int id, String brand, String model, String year, String parkingNumber, Boolean reservation_status,
 			Boolean block_status, int owner) {
 		super();
+		this.id = id;
 		this.brand = brand;
 		this.model = model;
 		this.year = year;
@@ -27,6 +29,16 @@ public class Car {
 		this.reservation_status = reservation_status;
 		this.block_status = block_status;
 		this.owner = owner;
+	}
+
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getBrand() {

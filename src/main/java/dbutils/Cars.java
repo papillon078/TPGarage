@@ -79,10 +79,11 @@ private Connection connexion;
 		try {
 			statement = connexion.createStatement();
 			//execution de la requete
-			resultat = statement.executeQuery("Select brand, model, year, parkingNumber, reservation_status, block_status, owner FROM cars;");
+			resultat = statement.executeQuery("Select id, brand, model, year, parkingNumber, reservation_status, block_status, owner FROM cars;");
 			
 			//recuperation des données
 			while(resultat.next()){
+				Integer id = resultat.getInt("id");
 				String brand = resultat.getString("brand");
 				String model = resultat.getString("model");
 				String year = resultat.getString("year");
@@ -92,7 +93,7 @@ private Connection connexion;
 				Integer owner = resultat.getInt("owner");
 				
 				//on met les info de base de donnée dans un objet car que l'on ajoute a une liste "cars"
-				Car car = new Car(brand, model, year, parkingNumber, reservation_status, block_status, owner);
+				Car car = new Car(id, brand, model, year, parkingNumber, reservation_status, block_status, owner);
 				cars.add(car);
 			}
 		}catch(SQLException e) {
@@ -149,8 +150,47 @@ private Connection connexion;
 		return reservationStatus;
 	}
 	
+public Boolean isBlocked(int id) {
+		
+		
+		// 1. initialisation des variables
+		Boolean blockStatus = false;
+				// Permet de rediger la requete
+				Statement statement = null;
+				//Permet de recuperer le resultat de la requete
+				ResultSet resultat = null;
+				
+				//2. Etablir la connexion a la BDD
+				loadDatabase();
+				
+				//3. Redaction et lancement de la requete
+				try {
+					statement = connexion.createStatement();
+					//execution de la requete
+					resultat = statement.executeQuery("Select block_status FROM cars WHERE id = "+id+";");
+					
+					//recuperation des données
+			while(resultat.next()){
+				blockStatus = resultat.getBoolean("block_status");
+			}			
+						
+				}catch(SQLException e) {
+					System.out.println("erreur traiement SQL : "+e.getMessage());
+				}finally {
+					try {
+						if (resultat != null) resultat.close();
+						if (statement != null) statement.close();
+						if (connexion != null) connexion.close();
+					}catch(SQLException e) {
+						System.out.println("erreur fermeture connexion SQL : "+e.getMessage());
+					}
+				}
+				
+		return blockStatus;
+	}
+	
 	// Permet d'etablir la connexion entre la base de donnée et le serveur
-	public void loadDatabase() {
+	public Connection loadDatabase() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		}catch(ClassNotFoundException e) {
@@ -161,5 +201,6 @@ private Connection connexion;
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return connexion;
 }
 }
