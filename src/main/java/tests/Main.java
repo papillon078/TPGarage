@@ -29,7 +29,7 @@ public class Main {
 		
 				Cars car2 = new Cars();
 				Boolean result = car2.isReserved(15);
-				System.out.println("est elle reservée : "+result);
+				System.out.println("est elle reservee : "+result);
 		
 	}
 
