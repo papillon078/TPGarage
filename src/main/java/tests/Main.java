@@ -8,7 +8,7 @@ import dbutils.Users;
 import entities.Car;
 import entities.User;
 
-public class ExecutionConsole {
+public class Main {
 
 	public static void main(String[] args) {
 		// comment afficher toute la table users
