@@ -31,6 +31,9 @@ public class ReserveCars extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/********************************************
+		 * Affichage de la liste des voitures 
+		 *******************************************/
 		Cars car = new Cars();
 		
 		List<Car> carsList = car.recuperercars(); 
@@ -44,20 +47,17 @@ public class ReserveCars extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Cars cars = new Cars();
-		boolean reserved = cars.isReserved(Integer.parseInt(request.getParameter("carId")));
-		boolean blocked = cars.isBlocked(Integer.parseInt(request.getParameter("carId")));
-		if (!reserved  && !blocked) {
-//			cars.sendMail();
-			String notification = "La voiture vous est reservée, vous recevrez un mail de confirmation";
-			request.setAttribute("notification", notification);
-		}else if(reserved) {
-			String notification = "La voiture est deja reservée, veuillez choisir une autre voiture";
-			request.setAttribute("notification", notification);
-		}else if(blocked){
-			String notification = "La voiture est bloquée pour achat, veuillez choisir une autre voiture";
-			request.setAttribute("notification", notification);
-		}
+		/********************************************
+		 * recuperation de l'id de la voiture selectionnée pour reservation
+		 * et verification de sa disponibilité
+		 * puis notification a l'utilisateur de sa disponibilité
+		 *******************************************/
+		Cars car = new Cars();
+		String notification ="";
+		int carId = Integer.parseInt(request.getParameter("carId"));
+		
+		notification  = car.carReserving(carId);
+		request.setAttribute("notification", notification);
 
 		doGet(request, response);
 	}

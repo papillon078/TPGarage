@@ -18,42 +18,42 @@ public class IsBlockedTests {
 	}
 
 	@Test
-	public void isReservedRespond() {
+	public void isBlockedRespond() {
 		// stade de dev : la fonction ne fait que retourner true
 		assertEquals(true, new Cars().isBlocked(18));
 	}
 	
 	@Test
-	public void isReserved15True() {
-		// verification que l'argument est bien reçu et utilisé
+	public void isBlocked15True() {
+		// stade de dev : verification que l'argument est bien reçu et utilisé
 		assertEquals(true, new Cars().isBlocked(18));
 	}
 	
 	@Test
-	public void isReservedidNotExist() {
-		// verification que la requete fonctionne avec l'id en dur
+	public void isBlockedidNotExist() {
+		// stade de dev : verification que la requete fonctionne avec l'id en dur
 		assertEquals(false, new Cars().isBlocked(19));
 	}
 	@Test
-	public void isReservedHard15True() {
-		// verification que la requete fonctionne avec l'id en dur
-		assertEquals(false, new Cars().isBlocked(18));
+	public void isBlockedHard18True() {
+		// stade de dev : verification que la requete fonctionne avec l'id en dur
+		assertEquals(true, new Cars().isBlocked(18));
 	}
 	@Test
-	public void isReservedHard16false() {
-		// verification que la requete fonctionne avec l'id en dur
+	public void isBlockedHard16false() {
+		// stade de dev :verification que la requete fonctionne avec l'id en dur
 		assertEquals(false, new Cars().isBlocked(16));
 	}
 	
 	@Test
-	public void isReservedTrue() {
-		// la voiture d'id 18 est reservée dans la BDD
+	public void isBlockedTrue() {
+		// TEST FINAL : la voiture d'id 18 est bloquée pour achat dans la BDD
 		assertEquals(true, new Cars().isBlocked(18));
 	}
 	
 	@Test
-	public void isReservedFalse() {
-		// la voiture d'id 16 n'est pas reservée dans la BDD
+	public void isBlockedFalse() {
+		// TEST FINAL : la voiture d'id 16 n'est pas bloquée pour achat dans la BDD
 		assertEquals(false, new Cars().isBlocked(16));
 	}
 }

@@ -11,6 +11,11 @@ import entities.User;
 public class Main {
 
 	public static void main(String[] args) {
+		
+		/**************************************************************************
+		 * cette partie est pour tester Jenkins et 
+		 * juste pour voir un peu des resultat de la BDD avant la conception du front
+		 *************************************************************************/
 		// comment afficher toute la table users
 		Users user = new Users();
 		System.out.println(user.recupererusers());

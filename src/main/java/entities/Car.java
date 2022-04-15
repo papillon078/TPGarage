@@ -3,6 +3,10 @@ package entities;
 
 public class Car {
 	
+	/**********************************
+	 * BEAN CAR
+	 **********************************/
+	
 	int id;
 	String brand;
 	String model;

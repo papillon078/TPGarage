@@ -23,7 +23,7 @@ public class RecuperercarsTests {
 
 	@Test
 	public void RecuperercarsRespond() {
-		// stade de dev : la fonction ne fait que retourner true
+		// verification que la fonction retourne le resultat de la requete
 		assertNotNull(new Cars().recuperercars());
 	}
 

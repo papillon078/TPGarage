@@ -5,6 +5,10 @@ package entities;
 
 public class User {
 	
+	/**********************************
+	 * BEAN USER
+	 **********************************/
+	
 	String firstname;
 	
 	String lastname;

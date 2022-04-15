@@ -10,7 +10,7 @@ public class LoadDatabaseTests {
 
 	@Test
 	public void loadDatabaseRespond() {
-		// stade de dev : la fonction ne fait que retourner true
+		// verification que la fonction ouvre biien une connexion
 		assertNotNull(new Cars().loadDatabase());
 	}
 }

@@ -13,6 +13,10 @@ import entities.User;
 
 public class Users {
 
+	/********************************************
+	 * Cette page regroupe toutes les fonctions et requetes en rapport avec la table users
+	 *******************************************/
+	
 	private Connection connexion;
 	
 	//insere un user dans la table user

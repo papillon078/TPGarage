@@ -12,6 +12,10 @@ import java.util.List;
 import entities.Car;
 
 public class Cars {
+	
+	/********************************************
+	 * Cette page regroupe toutes les fonctions et requetes en rapport avec la table cars
+	 *******************************************/
 
 private Connection connexion;
 	
@@ -111,6 +115,7 @@ private Connection connexion;
 		return cars;
 	}
 	
+	//verifie en base de donnée si la voiture selectionnée est deja réservée
 	public Boolean isReserved(int id) {
 		
 		
@@ -150,7 +155,8 @@ private Connection connexion;
 		return reservationStatus;
 	}
 	
-public Boolean isBlocked(int id) {
+	//verifie en base de donnée si la voiture selectionnée est deja bloquée pour achat
+	public Boolean isBlocked(int id) {
 		
 		
 		// 1. initialisation des variables
@@ -189,6 +195,60 @@ public Boolean isBlocked(int id) {
 		return blockStatus;
 	}
 	
+	public Boolean updateToReserved(int id) {
+		boolean statut = false;
+		//1. etablissement de la connexion
+		loadDatabase();
+		
+		//2. preparation et execution de la requete
+		try {
+			// Preparation
+			PreparedStatement preparedStatement = connexion.prepareStatement("UPDATE cars SET reservation_status = true WHERE id= ?;");
+			preparedStatement.setInt(1, id);
+			
+			// Execution
+			preparedStatement.executeUpdate();
+			
+			// on verifie que le reservation_status est bien passé a true
+			statut = isReserved(id);
+			
+		}catch(SQLException e) {
+			System.out.println("erreur insertion SQL : "+e.getMessage());
+			
+		}finally {
+			   //4. fermeture de la connexion
+			   try {
+				    if( connexion != null )connexion.close();
+			   }catch(SQLException e) {
+				   System.out.println("Erreur fermeture connexion SQL : "+e.getMessage());
+				   
+			   } 
+				
+		   }
+		return statut;
+		
+		
+	}
+	
+	//Fonction qui permet de verifier la disponibilité d'une voiture puis la reserve 
+	public String carReserving(int id) {
+		String notification ="";
+		Cars cars = new Cars();
+		boolean reserved = cars.isReserved(id);
+		boolean blocked = cars.isBlocked(id);
+		if (!reserved  && !blocked) {
+			//reservation du ehicule
+			cars.updateToReserved(id);
+//			cars.sendMail(); METHODE non developpée dans l'exercice
+			 notification = "La voiture est libre pour un essai, vous recevrez un mail de confirmation de reservation";
+		}else if(reserved) {
+			 notification = "La voiture est deja reservée, veuillez choisir une autre voiture";
+		}else if(blocked){
+			 notification = "La voiture est bloquée pour achat, veuillez choisir une autre voiture";
+		}
+		return notification;
+	}
+
 	// Permet d'etablir la connexion entre la base de donnée et le serveur
 	public Connection loadDatabase() {
 		try {

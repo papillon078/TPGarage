@@ -6,7 +6,10 @@
 </head>
 <body>
 <h1>BIENVENUE SUR LA PAGE DES VENTES</h1>
+	<!-- affichage des notifications -->
 	<c:out  value="${notification} " />
+		
+		<!-- affichage de la liste des voitures avec un bouton pour en reserver une pour essai -->
 		<c:forEach items="${carslist}" var="car" varStatus="status">
 			<form action="" method="post">
 				<c:out value="Marque : ${car.brand} model : ${car.model} année : ${car.year} " />
